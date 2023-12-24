@@ -17,6 +17,12 @@
   "require-dev": {
     "phpunit/phpunit": "^9.5"
   },
+  "suggest": {
+    "eufony/i18n-store-implementation": "Virtual package for token store implementations."
+  },
+  "provide": {
+    "eufony/i18n-store-implemtation": "self.version"
+  },
   "autoload": {
     "psr-4": {
       "Eufony\\I18N\\": [ "src/Exception/", "src/" ]
