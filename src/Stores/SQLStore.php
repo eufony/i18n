@@ -33,16 +33,6 @@ use Eufony\I18N\TranslationException;
 class SQLStore implements StoreInterface
 {
     /**
-     * The name of the table field that acts as the primary key.
-     */
-    const string ID_FIELD = "id";
-
-    /**
-     * The name of the table field that contains the names of the tokens.
-     */
-    const string TAG_FIELD = "tag";
-
-    /**
      * The Connection instance used to query the database.
      *
      * @var \Eufony\DBAL\Connection $connection
@@ -59,6 +49,24 @@ class SQLStore implements StoreInterface
     protected string $table;
 
     /**
+     * The name of the table field that acts as the primary key.
+     *
+     * Defaults to `id`.
+     *
+     * @var string $idField
+     */
+    protected string $idField;
+
+    /**
+     * The name of the table field that contains the names of the tokens.
+     *
+     * Defaults to `tag`.
+     *
+     * @var string $tagField
+     */
+    protected string $tagField;
+
+    /**
      * Class constructor.
      * Creates a new token store using an SQL table, by default called `tokens`.
      *
@@ -73,10 +81,16 @@ class SQLStore implements StoreInterface
      * @see \Eufony\I18N\Stores\SQLStore::ID_FIELD
      * @see \Eufony\I18N\Stores\SQLStore::TAG_FIELD
      */
-    public function __construct(Connection $connection, string $table = "tokens")
-    {
+    public function __construct(
+        Connection $connection,
+        string $table = "tokens",
+        string $idField = "id",
+        string $tagField = "tag"
+    ) {
         $this->connection = $connection;
         $this->table = $table;
+        $this->idField = $idField;
+        $this->tagField = $tagField;
         // TODO: Check if tokens table exists, and ensure the `tag` field is unique.
     }
 
@@ -99,14 +113,14 @@ class SQLStore implements StoreInterface
      */
     public function token(string $token): Token
     {
-        $query = Select::from($this->table)->where(Expr::eq(static::TAG_FIELD, $token));
+        $query = Select::from($this->table)->where(Expr::eq($this->tagField, $token));
         $result = $this->connection->query($query);
 
         if (empty($result)) {
             throw new TranslationException("Unknown token");
         }
 
-        return new Token($token, array_diff_key($result[0], array_flip([static::ID_FIELD, static::TAG_FIELD])));
+        return new Token($token, array_diff_key($result[0], array_flip([$this->idField, $this->tagField])));
     }
 
     /**
@@ -114,7 +128,7 @@ class SQLStore implements StoreInterface
      */
     public function translate(string $string, string $from, array $to): Token
     {
-        $query = Select::from($this->table)->fields([static::TAG_FIELD, ...$to])->where(Expr::eq($from, $string));
+        $query = Select::from($this->table)->fields([$this->tagField, ...$to])->where(Expr::eq($from, $string));
         $result = $this->connection->query($query);
 
         if (empty($result)) {
@@ -122,6 +136,6 @@ class SQLStore implements StoreInterface
             throw new TranslationException($message);
         }
 
-        return new Token($result[0][static::TAG_FIELD], array_intersect_key($result[0], array_flip($to)));
+        return new Token($result[0][$this->tagField], array_intersect_key($result[0], array_flip($to)));
     }
 }
