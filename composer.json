@@ -1,0 +1,30 @@
+{
+  "name": "eufony/i18n",
+  "description": "A simple but naive approach to token-based internationalization.",
+  "keywords": [ "eufony", "i18n", "l10n", "translation" ],
+  "type": "library",
+  "license": "LGPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Alpin H. Gencer",
+      "email": "ah@gencer.us"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {},
+  "require-dev": {},
+  "autoload": {
+    "psr-4": {
+      "Eufony\\I18N\\": [ "src/Exception/", "src/" ]
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Eufony\\I18N\\Tests\\": [ "tests/" ]
+    }
+  },"config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  }
+}
