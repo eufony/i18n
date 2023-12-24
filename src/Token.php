@@ -28,6 +28,13 @@ use Stringable;
 class Token implements Stringable
 {
     /**
+     * The tag used to identify this token.
+     *
+     * @var string $tag
+     */
+    protected string $tag;
+
+    /**
      * Key-value pairs of languages and translations of this token.
      *
      * @var string[] $translations
@@ -43,14 +50,16 @@ class Token implements Stringable
 
     /**
      * Class constructor.
-     * Creates a new token with the given translations and (optionally) a default
-     * language.
+     * Creates a new token with the given tag and translations and (optionally) a
+     * default language.
      *
+     * @param string $tag
      * @param string[] $translations
      * @param string|null $preferredLanguage
      */
-    public function __construct(array $translations, ?string $preferredLanguage = null)
+    public function __construct(string $tag, array $translations, ?string $preferredLanguage = null)
     {
+        $this->tag = $tag;
         $this->translations = $translations;
         $this->preferredLanguage = $preferredLanguage;
     }
@@ -63,6 +72,30 @@ class Token implements Stringable
     public function __toString(): string
     {
         return $this->get($this->preferredLanguage);
+    }
+
+    /**
+     * Getter for this token's tag.
+     *
+     * Returns the current tag.
+     *
+     * @return string
+     */
+    public function tag(): string
+    {
+        return $this->tag;
+    }
+
+    /**
+     * Getter for this token's translated messages.
+     *
+     * Returns the current translations.
+     *
+     * @return string[]
+     */
+    public function translations(): array
+    {
+        return $this->translations;
     }
 
     /**
@@ -153,6 +186,6 @@ class Token implements Stringable
         $translations = array_map(fn($translation) => strtr($translation, $replace), $this->translations);
 
         // Return new token with results
-        return new Token($translations, $this->preferredLanguage);
+        return new Token($this->tag, $translations, $this->preferredLanguage);
     }
 }

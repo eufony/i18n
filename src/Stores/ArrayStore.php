@@ -43,15 +43,16 @@ class ArrayStore implements StoreInterface
 
     /**
      * Class constructor.
-     * Creates a new store from a two-dimensional PHP array, where the first key
-     * is the tag of the token and the second key is the language of each
+     * Creates a new token store from a two-dimensional PHP array, where the first
+     * key is the tag of the token and the second key is the language of each
      * translation.
      *
      * @param string[][] $tokens
      */
     public function __construct(array $tokens)
     {
-        $this->tokens = array_map(fn($token) => new Token($token), $tokens);
+        array_walk($tokens, fn(&$token, $tag) => $token = new Token($tag, $token));
+        $this->tokens = $tokens;
     }
 
     /**
