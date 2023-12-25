@@ -12,7 +12,7 @@
   ],
   "minimum-stability": "stable",
   "require": {
-    "php": "^8.2",
+    "php": "^8.1",
     "eufony/dbal": "v0.1.0-beta1"
   },
   "require-dev": {
