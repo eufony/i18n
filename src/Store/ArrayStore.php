@@ -14,9 +14,8 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Eufony\I18N\Stores;
+namespace Eufony\I18N\Store;
 
-use Eufony\I18N\StoreInterface;
 use Eufony\I18N\Token;
 use Eufony\I18N\TranslationException;
 

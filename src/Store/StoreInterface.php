@@ -14,7 +14,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Eufony\I18N;
+namespace Eufony\I18N\Store;
+
+use Eufony\I18N\Token;
 
 /**
  * Provides a common interface for fetching tokens.

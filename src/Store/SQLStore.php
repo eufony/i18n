@@ -14,12 +14,11 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-namespace Eufony\I18N\Stores;
+namespace Eufony\I18N\Store;
 
 use Eufony\DBAL\Connection;
 use Eufony\DBAL\Query\Builder\Select;
 use Eufony\DBAL\Query\Expr;
-use Eufony\I18N\StoreInterface;
 use Eufony\I18N\Token;
 use Eufony\I18N\TranslationException;
 
@@ -78,8 +77,8 @@ class SQLStore implements StoreInterface
      *
      * @param \Eufony\DBAL\Connection $connection
      * @param string $table
-     * @see \Eufony\I18N\Stores\SQLStore::ID_FIELD
-     * @see \Eufony\I18N\Stores\SQLStore::TAG_FIELD
+     * @see \Eufony\I18N\Store\SQLStore::ID_FIELD
+     * @see \Eufony\I18N\Store\SQLStore::TAG_FIELD
      */
     public function __construct(
         Connection $connection,

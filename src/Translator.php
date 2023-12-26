@@ -16,6 +16,7 @@
 
 namespace Eufony\I18N;
 
+use Eufony\I18N\Store\StoreInterface;
 use InvalidArgumentException;
 
 /**
@@ -28,7 +29,7 @@ class Translator
     /**
      * The backend for fetching or translating tokens.
      *
-     * @var \Eufony\I18N\StoreInterface $store
+     * @var \Eufony\I18N\Store\StoreInterface $store
      */
     private StoreInterface $store;
 
@@ -46,7 +47,7 @@ class Translator
      * Optionally sets a preferred language to act as the default target
      * translation language.
      *
-     * @param \Eufony\I18N\StoreInterface $store
+     * @param \Eufony\I18N\Store\StoreInterface $store
      * @param string|null $preferredLanguage
      */
     public function __construct(StoreInterface $store, ?string $preferredLanguage = null)
@@ -60,7 +61,7 @@ class Translator
      *
      * Returns the current token store.
      *
-     * @return \Eufony\I18N\StoreInterface
+     * @return \Eufony\I18N\Store\StoreInterface
      */
     public function store(): StoreInterface
     {
