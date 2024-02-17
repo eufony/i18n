@@ -57,10 +57,10 @@ Out of the box, *eufony/i18n* provides two different store implementations:
 // Fetch tokens from PHP arrays
 // You could also for example parse this array from a JSON string
 $store = new ArrayStore(["greetings.weather.good" => ["en" => "...", "de" => "...", "ru" => "..."]]);
-$store = ArrayStore::fromJSON(File::read("/extras/i18n/tokens.json"));  // `File` requires `eufony/filesystem`
+$store = ArrayStore::fromJSON(File::read("extras/i18n/tokens.json"));  // `File` requires `eufony/filesystem`
 
 // Fetch tokens from an SQL database using the `eufony/dbal` abstraction layer
-$connection = new Connection(/* ... */);  // a Connection instance from `eufony/dbal`
+$connection = new Connection(/* ... */);  // a `Connection` instance from `eufony/dbal`
 $store = new SQLStore($connection);
 ```
 
